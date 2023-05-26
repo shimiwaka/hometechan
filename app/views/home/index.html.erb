@@ -1,0 +1,74 @@
+<% if user_signed_in? %>
+    <% if @pages then %>
+        <%= link_to 'javascript:void(0);', style: "display: inline-block;" ,onclick: "showPostBox()".html_safe, id: "show_post_box" do %>
+            <i class="fas fa-plus-circle"></i>投稿する
+        <% end %>
+        <%= link_to 'javascript:void(0);', style: "display: none;" , onclick: "hidePostBox()".html_safe, id: "hide_post_box" do %>
+            <i class="fas fa-window-close"></i>
+        <% end %>
+        <div id="post_box" style="display:none;">
+    <% else %>
+        <div id="post_box" style="display:block;">
+    <% end %>
+    <div class="show-icon">
+        <table>
+            <tr>
+                <td>
+                    <%= link_to("/status/#{current_user.screen_name}") do %>
+                        <%= showIcon(current_user) %>
+                    <% end %>
+                </td>
+                <td>
+                    <%= link_to("/status/#{current_user.screen_name}") do %>
+                        <%= current_user.name %><br />
+                        @<%= current_user.screen_name %>
+                    <% end %>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="show-follow">
+        <%= link_to "フォロー", follows_path, :method=> :get %><%= @follow.count-1 %> /
+        <%= link_to "フォロワー", followers_path, :method=> :get %><%= @follower.count %>
+    </div>
+    <div class="show-homete">
+        <%= @homeru_count %>ほめた /
+        <%= @homerare_count %>ほめられた
+    </div>
+    <hr>
+    <%= form_tag(homete_create_path, method: :post, multipart: true) do %>
+        <%= text_area_tag :content, nil, class: "content", :placeholder => "ほめてほしいことを書いてください" %><br />
+        <%= file_field_tag 'images[]', class: "upload-image", multiple: true %><br />
+        <span class="mini-desc">※画像を最大5枚までアップロードできます。</span><br />
+        <%= submit_tag "ほめて!", id: "homete" %>
+    <% end %>
+    </div>
+    <hr>
+    <%= render "users/shared/show_homete", :hometes => @hometes %>
+    <%= paginate @hometes %>
+<% else %>
+    <div class="guidance-area">
+        <%= image_tag "/guidance.png", :class => "guidance" %><br />
+        <span class="mini-desc">※公序良俗に反する書き込みをするユーザーは、管理者の判断で削除させていただきます。</span><br />
+        <span class="mini-desc">※18歳未満または未成年者に禁止されているコンテンツを直接貼り付けることは禁止です（間接はOK）。</span>
+    </div>
+    <hr>
+    <%= link_to new_user_registration_path, :method => :get do %>
+        <div class="arrow-button">新規登録
+        <i class="fas fa-arrow-right"></i></div>
+    <% end %>
+    <%= link_to new_user_session_path, :method => :get do %>
+        <div class="arrow-button">ログイン
+        <i class="fas fa-arrow-right"></i></div>
+    <% end %>
+    <div>
+        Twitter API の有料化に伴い Twitter アカウントでのログインを廃止しました。<br />
+        パスワードを設定していない方は、「ログイン」→「パスワードを忘れた」からパスワードの再設定を行ってください。
+    </div>
+    <script type="text/javascript">
+    var nend_params = {"media":68211,"site":352607,"spot":1046363,"type":10,"oriented":1};
+    </script>
+    <hr>
+    <h3>人気のほめて</h3>
+    <%= render "users/shared/show_homete", :hometes => @hometes, :pushed_table => @pushed_table %>
+<% end %>

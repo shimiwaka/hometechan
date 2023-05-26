@@ -1,0 +1,17 @@
+<h3>通知</h3>
+<% if @notifications.count != 0 %>
+    <% @notifications.each do |notification| %>
+        <% if notification.read then %>
+            <div class="read-notification"><%= notification.content.html_safe %></div>
+            <div class="mini-desc"><%= conv_date(notification.created_at.to_s) %></div>
+        <% else %>
+            <div class="not-read-notification"><%= notification.content.html_safe %></div>
+            <div class="mini-desc"><%= conv_date(notification.created_at.to_s) %></div>
+        <% end %>
+        <hr>
+    <% end %>
+    <% already_read(@notifications) %>
+    <%= paginate @notifications %>
+<% else %>
+    <h4>通知は来ていません</h4>
+<% end %>

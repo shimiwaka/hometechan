@@ -1,0 +1,25 @@
+<h3>総ほめて<%= @homete_total %> 総ほめ<%= @homeru_total %></h3>
+<h3><%= link_to "すべてのほめてを見る", admin_all_path %></h3>
+<div class="user-list-container">
+    <table class="user-list">
+        <% @users.each do |user| %>
+            <tr>
+                <td class="user-list-cell"><%= user.id %></td>
+                <td class="user-list-cell"><%= showIcon(user,25) %></td>
+                <td class="user-list-cell"><%= link_to user.name,"/status/#{user.screen_name}", :method => :get %></td>
+                <td class="user-list-cell">@<%= user.screen_name %></td>
+                <td class="user-list-cell"><%= user.email %></td>
+                <td class="user-list-cell"><%= user.provider %></td>
+                <td class="user-list-cell"><%= link_to "削除", "/admin/destroy_user/#{user.id}"%></td>
+                <td class="user-list-cell">
+                    <% if user.locked then %>
+                        <%= link_to "ロック解除", "/admin/unlock/#{user.id}"%>
+                    <% else %>
+                        <%= link_to "ロック", "/admin/lock/#{user.id}"%>
+                    <% end %>
+                </td>
+            </tr>
+        <% end %>
+    </table>
+</div>
+<%= paginate @users %>

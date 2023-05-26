@@ -1,0 +1,12 @@
+<% if @homete %>
+    <h3>ほめてを編集する</h3>
+    <%= form_tag("/homete/update/#{@homete.id}", method: :post, multipart: true) do %>
+        <%= text_area_tag :content , @homete.content , class: "content"%><br />
+        <%= file_field_tag 'images[]', multiple: true %><br />
+        <span class="mini-desc">※画像を変更する場合、アップロードしなおしてください</span><br />
+        <%= check_box_tag 'not_change_image', 1, { :checked => "checked" } %> 画像を変更しない場合はチェック <br />
+        <%= submit_tag "送信", id: "homete" %>
+    <% end %>
+<% else %>
+    <h2>その投稿はありません</h2>
+<% end %>

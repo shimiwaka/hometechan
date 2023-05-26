@@ -1,0 +1,44 @@
+<% if !button_hide %>
+    <span class="home-all"> <span id="homeru_<%=homete.id%>_all"><%= showHomeruCount(homete.id, 0) %></span></span>
+    <%= link_to 'javascript:void(0);', style: "display: inline-block;" ,
+    onclick: "homeru('#{homete.id}', 1)".html_safe, id: "homeru_1" do %>
+    <span class="c-tooltip" data-tooltip="えらい">&#x1f60c;</span>
+    <% end %>
+    <span id="homeru_<%=homete.id%>_1" class="<%= isPushed(pushed_table, homete.id, 1) %>"><%= showHomeruCount(homete.id, 1) %></span>
+
+    <%= link_to 'javascript:void(0);', style: "display: inline-block;" ,
+    onclick: "homeru('#{homete.id}', 2)".html_safe, id: "homeru_2" do %>
+    <span class="c-tooltip" data-tooltip="かわいそう">&#x1f62d;</span>
+    <% end %>
+    <span id="homeru_<%=homete.id%>_2" class="<%= isPushed(pushed_table, homete.id, 2) %>"><%= showHomeruCount(homete.id, 2) %></span>
+
+    <%= link_to 'javascript:void(0);', style: "display: inline-block;" ,
+    onclick: "homeru('#{homete.id}', 3)".html_safe, id: "homeru_3" do %>
+    <span class="c-tooltip" data-tooltip="かわいい">&#x1f970;</span>
+    <% end %>
+    <span id="homeru_<%=homete.id%>_3" class="<%= isPushed(pushed_table, homete.id, 3) %>"><%= showHomeruCount(homete.id, 3) %></span>
+
+    <%= link_to 'javascript:void(0);', style: "display: inline-block;" ,
+    onclick: "homeru('#{homete.id}', 4)".html_safe, id: "homeru_4" do %>
+    <span class="c-tooltip" data-tooltip="かっこいい">&#x1f60e;</span>
+    <% end %>
+    <span id="homeru_<%=homete.id%>_4" class="<%= isPushed(pushed_table, homete.id, 4) %>"><%= showHomeruCount(homete.id, 4) %></span>
+<% else %>
+    <span class="home-all"> <span id="homeru_<%=homete.id%>_all"><%= showHomeruCount(homete.id, 0) %></span></span>
+    <span class="c-tooltip" data-tooltip="えらい">&#x1f60c;</span>
+    <span id="homeru_<%=homete.id%>_1" class="<%= isPushed(pushed_table, homete.id, 1) %>"><%= showHomeruCount(homete.id, 1) %></span>
+    <span class="c-tooltip" data-tooltip="かわいそう">&#x1f62d;</span>
+    <span id="homeru_<%=homete.id%>_2" class="<%= isPushed(pushed_table, homete.id, 2) %>"><%= showHomeruCount(homete.id, 2) %></span>
+    <span class="c-tooltip" data-tooltip="かわいい">&#x1f970;</span>
+    <span id="homeru_<%=homete.id%>_3" class="<%= isPushed(pushed_table, homete.id, 3) %>"><%= showHomeruCount(homete.id, 3) %></span>
+    <span class="c-tooltip" data-tooltip="かっこいい">&#x1f60e;</span>
+    <span id="homeru_<%=homete.id%>_4" class="<%= isPushed(pushed_table, homete.id, 4) %>"><%= showHomeruCount(homete.id, 4) %></span>
+<% end %>
+<span onClick="open_help(<%=homete.id%>);" class="open-help-homeru"><i class="fas fa-question-circle"></i></span>
+<span id="help_homeru_<%=homete.id%>" class="help-homeru">
+    <span onClick="close_help(<%=homete.id%>);"><i class="fas fa-window-close"></i></span><br />
+    &#x1f60c;えらい<br />
+    &#x1f62d;かわいそう<br />
+    &#x1f970;かわいい<br />
+    &#x1f60e;かっこいい
+</span>

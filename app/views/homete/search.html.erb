@@ -1,0 +1,17 @@
+<h3>検索</h3>
+<div class="search">
+    <%= form_tag(homete_search_path, method: :get) do %>
+        <%= text_field_tag :query, @query, :placeholder => "検索ワードを入力" %>
+        <%= submit_tag "検索" %>
+    <% end %>
+</div>
+
+<% if @query != "" && @query then %>
+    <% if @hometes.count > 0 then %>
+        <h4><%= @query %>での検索結果</h4>
+        <%= render "users/shared/show_homete", :hometes => @hometes %>
+        <%= paginate @hometes %>
+    <% else %>
+        <h4><%= @query %>での検索結果が見つかりませんでした</h4>
+    <% end %>
+<% end %>

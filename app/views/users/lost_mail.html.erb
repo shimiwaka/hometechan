@@ -1,0 +1,14 @@
+<div class="login-box">
+  <h3>認証のメールが届かない場合</h3>
+
+  <%= form_tag(resend_path, method: :post) do %>
+    <div class="field">
+      メールアドレス<br />
+      <%= email_field_tag :email %>
+    </div>
+
+    <div class="actions">
+      <%= submit_tag "認証メールの再送を行う", class: "big-button"  %>
+    </div>
+  <% end %>
+</div>

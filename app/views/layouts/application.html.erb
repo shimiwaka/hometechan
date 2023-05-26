@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ほめてちゃん</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=2.0">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'baguetteBox.min', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+  </head>
+
+  <header>
+    <span onClick="hamburger();" class="hamburger-icon">
+      <i class="fas fa-bars"></i>
+    </span>
+    <span id="logo">
+      <%= link_to (root_path) do %>
+        <% image_tag "/logo.png", :class => "logo-image" %>
+      <% end %>
+    </span>
+    <% if current_user %>
+      <span class="search-form">
+    <% else %>
+      <span class="search-form search-form-nologin">
+    <% end %>
+    <%= form_tag(homete_search_path, method: :get) do %>
+      <%= text_field_tag :query,"", :placeholder => "検索ワードを入力" %>
+      <%= submit_tag "検索" %>
+      <%= link_to(help_path) do %>
+        <i class="fas fa-question-circle fa-question-circle-form"></i>
+      <% end %>
+      <% end %>
+    </span>
+    <% if current_user %>
+      <span class="search-link">
+    <% else %>
+      <span class="search-link search-link-nologin">
+    <% end %>
+    <%= link_to(help_path) do %>
+      <i class="fas fa-question-circle"></i>
+    <% end %>
+    <%= link_to(homete_search_path) do %>
+      <i class="fas fa-search"></i>
+    <% end %>
+    </span>
+    <% if current_user %>
+      <%= link_to(notifications_path) do %>
+        <span class="header-icon">
+          <%= showIcon(current_user, 40) %>
+        </span>
+        <span class="notifications">
+          <%= @notifications_count %>
+        </span>
+      <% end %>
+    <% end %>
+  </header>
+  <% if current_user %>
+    <nav id="navigator">
+      <ul>
+        <li class="close-icon" onClick="hamburger();"><i class="fas fa-window-close"></i></li>
+        <li><%= link_to "トップに戻る", root_path %></li>
+        <hr>
+        <li><%= link_to "設定変更", edit_user_registration_path %></li>
+        <li><%= link_to "プロフィール", "/status/#{current_user.screen_name}" %></li>
+        <li><%= link_to "通知", notifications_path, :method => :get %></li>
+        <li><%= link_to "検索", homete_search_path, :method => :get %></li>
+        <li><%= link_to "ミュート一覧", mutes_path, :method => :get %></li>
+        <li><%= link_to "人気のほめて", popular_path, :method => :get %></li>
+        <hr>
+        <li><%= link_to "ログアウト", destroy_user_session_path, :method => :delete %></li>
+      </ul>
+    </nav>
+  <% end %>
+  <body>
+    <% if notice then %>
+      <div class="notice"><%= notice %></div>
+    <% end %>
+    <% if alert then %>
+      <div class="alert"><%= alert %></div>
+    <% end %>
+    <div class="rt-notice"></div>
+    <div class="contents-main">
+      <%= yield %>
+    </div>
+    <hr>
+    <div class="footer">
+      <%= link_to "プライバシーポリシー",  privacy_policy_path, :method => :get %>
+      <%= link_to "利用規約",  terms_path, :method => :get %>
+      <span class="author">(c)しみわか, 2021</span>
+    </div>
+  <script type="text/javascript" src="https://js1.nend.net/js/nendAdLoader.js"></script>
+  </body>
+  <%= javascript_include_tag 'baguetteBox.min' %>
+  <script>
+  document.addEventListener('turbolinks:load', () => {
+    baguetteBox.run('.gallery');
+  })
+  </script>
+</html>

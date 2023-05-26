@@ -1,0 +1,88 @@
+<% if @homete then %>
+    <% pushed_table = {} %>
+    <% if current_user %>
+        <% already_pushed = Homeru.where(:author => current_user.id, :to => @homete.id) %>
+        <% already_pushed.each do |homeru|%>
+            <% pushed_table["#{homeru.to}"] = true %>
+            <% pushed_table["#{homeru.to}-#{homeru.hometype}"] = true %>
+        <% end %>
+    <% end %>
+    <% user = User.find_by(id: @homete.author) %>
+    <% if user then %>
+        <div class="homete-box  <%= isHometed(pushed_table, @homete.id) %>">
+            <div class="show-author">
+                <%= showIcon(user, 30) %>
+                <% if user.screen_name then %>
+                    <%= link_to(user.name, "/status/#{user.screen_name}") %>
+                <% else %>
+                    <%= user.name %>
+                <% end %>
+            </div>
+            <div class="show-images gallery">
+                <% if @homete[:images] %>
+                    <% if @homete[:images].class == String then %>
+                        <% images = eval(@homete[:images]) %>
+                    <% else %>
+                        <% images = @homete[:images] %>
+                    <% end %>
+                <% else %>
+                    <% images = [] %>
+                <% end %>
+                <% if images.size != 0 then %>
+                    <% cnt = 0 %>
+                    <% images.each do |img| %>
+                        <% if !img then break end %>
+                        <% if img.include?('.png') || img.include?('.jpg') || img.include?('.gif') || img.include?('.jpeg') %>
+                            <% cnt += 1 %>
+                            <a href="<%="/uploads/homete/images/#{@homete.id}/#{img}"%>" data-lightbox="image<%=cnt%>">
+                            <% if images.size == 1 then %>
+                                <%= image_tag "/uploads/homete/images/#{@homete.id}/#{img}" ,class: 'image-big' %>
+                            <% else %>
+                                <% if cnt == 1 then %>
+                                    <%= image_tag "/uploads/homete/images/#{@homete.id}/#{img}" ,class: 'image-big' %><br>
+                                <% else %>
+                                    <%= image_tag "/uploads/homete/images/#{@homete.id}/#{img}" ,class: 'image-thumb' %>
+                                <% end %>
+                            <% end %>
+                            </a>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            </div>
+            <div>
+                <%= link_to("/homete/#{@homete.id}") do %>
+                    <span class="mini-desc"><%= conv_date(@homete.created_at.to_s) %></span>
+                <% end %>
+            </div>
+            <div class="show-content"><%= convert_tag(@homete.content).html_safe %></div>
+
+            <% button_hide = false %>
+            <hr>
+            <% if current_user %>
+                <% if current_user.id == @homete.author then %>
+                    <% button_hide = true %>
+                <% end %>
+            <% end %>
+            <%= render "users/shared/show_button", :homete => @homete, :button_hide => button_hide, :pushed_table => pushed_table %>
+            <br />
+            <div class="ctrl-button">
+                <% if current_user %>
+                    <% if @homete.author == current_user.id || is_admin(current_user) then %>
+                        <%= link_to("/homete/edit/#{@homete.id}") do %>
+                            <i class="fas fa-edit"></i>
+                        <% end %>
+                        <%= link_to('javascript:void(0);', onclick: "var ok=confirm('本当に削除しますか？');if (ok) location.href='/homete/destroy/#{@homete.id}'; return false;".html_safe) do %>
+                        <i class="fas fa-trash-alt"></i>
+                        <% end %>
+                    <% end %>
+                <% end %>
+                <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="<%= shortHomete(@homete.content, @homete.author).html_safe %>">ツイートで共有</a>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+        </div>
+    <% else %>
+        <h2>投稿者のアカウントがありません</h2>
+    <% end %>
+<% else %>
+    <h2>その投稿はありません</h2>
+<% end %>

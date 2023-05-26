@@ -1,0 +1,15 @@
+<h3>フォロー</h3>
+<% if @users.count != 0 %>
+    <% @users.each do |user| %>
+        <% if user then %>
+            <%= showIcon(user,25) %> <%= link_to user.name,"/status/#{user.screen_name}", :method => :get %>
+            @<%= user.screen_name %>
+            <% if Follow.find_by(from: current_user.id, to:user.id, enable: false) then %>
+                <span class="mini-desc">※フォロー無効化中</span>
+            <% end %><br />
+        <% end %>
+    <% end %>
+    <%= paginate @users %>
+<% else %>
+    <h4>誰もフォローしていません</h4>
+<% end %>

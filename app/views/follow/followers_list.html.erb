@@ -1,0 +1,12 @@
+<h3>フォロワー</h3>
+<% if @users.count != 0 %>
+    <% @users.each do |user| %>
+        <% if user then %>
+            <%= showIcon(user,25) %> <%= link_to user.name,"/status/#{user.screen_name}", :method => :get %>
+            @<%= user.screen_name %><br />
+        <% end %>
+    <% end %>
+    <%= paginate @users %>
+<% else %>
+    <h4>誰にもフォローされていません</h4>
+<% end %>

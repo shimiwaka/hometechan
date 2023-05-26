@@ -1,0 +1,2 @@
+module HomeruHelper
+end

@@ -1,0 +1,5 @@
+<p><%= @email %>さん、ようこそ。</p>
+
+<p>以下のリンクをクリックして登録を完了してください。</p>
+
+<p><a href="http://<%= ENV['DOMAIN_NAME'] %>/users/confirmation?confirmation_token=<%= @token %>">http://<%= ENV['DOMAIN_NAME'] %>/users/confirmation?confirmation_token=<%= @token %></a></p>

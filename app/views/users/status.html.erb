@@ -1,0 +1,51 @@
+<% if @target_user then %>
+<span class="profile-info">
+    <table>
+        <tr>
+            <td>
+                <%= showIcon(@target_user, 80) %>
+            </td>
+            <td>
+                <%= @target_user.name %><br />@<%= @target_user.screen_name %>
+            </td>
+        </tr>
+    </table>
+</span>
+<% if current_user %>
+    <% if @target_user.id != current_user.id %>
+        <% if is_follow(@target_user.id) then %>
+            <%= link_to "フォロー中", 'javascript:void(0);', style: "display: inline-block;" ,
+                onclick: "unfollowUser('#{@target_user.screen_name}')".html_safe, id: "unfollow", class: 'button-on' %>
+            <%= link_to "フォロー", 'javascript:void(0);', style: "display: none;" ,
+                onclick: "followUser('#{@target_user.screen_name}')".html_safe, id: "follow", class: 'button-off' %>
+        <% else %>
+            <%= link_to "フォロー中", 'javascript:void(0);', style: "display: none;" ,
+                onclick: "unfollowUser('#{@target_user.screen_name}')".html_safe, id: "unfollow", class: 'button-on' %>
+            <%= link_to "フォロー", 'javascript:void(0);', style: "display: inline-block;" ,
+                onclick: "followUser('#{@target_user.screen_name}')".html_safe, id: "follow", class: 'button-off' %>
+        <% end %>
+        <% if is_mute(@target_user.id) then %>
+            <%= link_to "ミュート中", 'javascript:void(0);', style: "display: inline-block;" ,
+            onclick: "unmuteUser('#{@target_user.screen_name}')".html_safe, id: "unmute", class: 'button-on' %>
+            <%= link_to "ミュート", 'javascript:void(0);', style: "display: none;" ,
+            onclick: "muteUser('#{@target_user.screen_name}')".html_safe, id: "mute", class: 'button-off' %>
+        <% else %>
+            <%= link_to "ミュート中", 'javascript:void(0);', style: "display: none;" ,
+            onclick: "unmuteUser('#{@target_user.screen_name}')".html_safe, id: "unmute", class: 'button-on' %>
+            <%= link_to "ミュート", 'javascript:void(0);', style: "display: inline-block;" ,
+            onclick: "muteUser('#{@target_user.screen_name}')".html_safe, id: "mute", class: 'button-off' %>
+        <% end %>
+    <% end %>
+<% end %>
+
+<div class="show-follow">フォロー<%= @follow.count-1 %> フォロワー<span id="follower_count"><%= @follower.count %></span></div>
+<% if @target_user.twitter_screen_name != "" %>
+    <div class="twitter-link"><i class="fab fa-twitter"></i><%= link_to "@" + @target_user.twitter_screen_name, "https://twitter.com/#{@target_user.twitter_screen_name}", target: :_blank, rel: "noopener noreferrer" %></div>
+    <% end %>
+    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="<%=@target_user.name%>のほめてちゃんはこちら"> ツイートで共有</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <%= render "users/shared/show_homete", :hometes => @hometes %>
+    <%= paginate @hometes %>
+<% else %>
+    <h3>そんなユーザーはいません</h3>
+<% end %>

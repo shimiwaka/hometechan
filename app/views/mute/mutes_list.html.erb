@@ -1,0 +1,9 @@
+<h3>ミュート</h3>
+<% if @users.count != 0 then %>
+    <% @users.each do |user| %>
+        <%= showIcon(user) %> <%= link_to user.name,"/status/#{user.screen_name}", :method => :get %>
+        @<%= user.screen_name %>
+    <% end %>
+<% else %>
+    <h4>誰もミュートしていません</h4>
+<% end %>

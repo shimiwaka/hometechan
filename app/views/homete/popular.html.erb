@@ -1,0 +1,7 @@
+<h3>人気のほめて</h3>
+<% if @popular_hometes.count != 0 %>
+    <%= render "users/shared/show_homete", :hometes => @popular_hometes %>
+    <%= paginate @popular_hometes %>
+<% else %>
+    <h4>人気のほめてはありません</h4>
+<% end %>

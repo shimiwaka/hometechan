@@ -1,0 +1,38 @@
+  <div class="login-box">
+  <h2>ログイン</h2>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="field">
+      メールアドレスかログインID<br />
+      <%= f.text_field :login, autofocus: true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password %><br />
+      <%= f.password_field :password, autocomplete: "current-password" %>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end %>
+
+    <div class="actions">
+      <%= f.submit "ログイン" %>
+    </div>
+
+  <% end %>
+  <br />
+  <div>
+  <% if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+    <%= link_to new_password_path(resource_name) do %>
+      <div class="arrow-button">パスワードを忘れた<i class="fas fa-arrow-right"></i></div>
+    <% end %>
+  <% end %>
+  <%= link_to resend_path do%>
+    <div class="arrow-button">認証メールが届かない<i class="fas fa-arrow-right"></i></div>
+  <% end %>
+    <br />
+  </div>
+</div>

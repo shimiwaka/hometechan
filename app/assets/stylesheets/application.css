@@ -1,0 +1,461 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ * {
+    font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','メイリオ', 'Meiryo','ＭＳ ゴシック',sans-serif;
+ }
+
+ header {
+    position: sticky;
+    top: 0;
+    padding: 4px;
+    margin: 0px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #f6c5da;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .2);
+    z-index: 999;
+}
+
+body {
+    margin: 0px;
+}
+
+.logo-image {
+    top: 10px;
+    height: 40px;
+}
+
+input[type=text] {
+    font-size: 16px;
+    width: 300px;
+}
+
+input[type=email]{
+    font-size: 16px;
+    width: 300px;
+}
+
+input[type=password]{
+    font-size: 16px;
+    width: 300px;
+}
+
+input[type=submit]{
+    width: 80px;
+    border-radius: 15px;
+    padding: 5px;
+    border: solid 1px #999999;
+    background-color: #fbf1df;
+}
+
+input[type=submit].big-button{
+    width: 200px;
+}
+
+.user-list-container {
+    overflow: scroll;
+    white-space:nowrap;
+    width: 100%;
+}
+
+.user-list-cell {
+    padding: 7px;
+}
+
+.contents-main {
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-top: 10px;
+}
+
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #000000;
+    background-color: #75CCE8;
+    text-decoration: underline;
+}
+
+.notice {
+    padding: 4px;
+    margin: 0px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fbf1df;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .2);
+}
+
+.alert {
+    padding: 4px;
+    margin: 0px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fbf1df;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .2);
+}
+
+.content {
+    width: 300px;
+    height: 100px;
+}
+
+#navigator{
+    position: fixed;
+    left: -200px;
+    width: 200px;
+    height: 100vh;
+    background: #ffffff;
+    transition: .3s;
+    top: 60px;
+    border: solid 1px #999999;
+    z-index: 1000;
+}
+
+.image-thumb {
+    width: 90px;
+}
+
+.image-big {
+    width: 320px;
+}
+
+.in {
+    transform: translateX(100%);
+}
+
+#navigator ul{
+    padding-top: 15px;
+    padding-left: 10px;
+}
+
+#navigator ul li{
+    list-style-type: none;
+}
+
+#hamburger {
+    float: right;
+    margin-right: 10px;
+}
+
+.mini-desc {
+    color: #999999;
+    font-size: 12px;
+}
+
+.homete-box {
+    width: 500px;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 25px;
+    border: solid 1px #999999;
+    word-break: break-all;
+}
+
+.login-box {
+    width: 500px;
+    padding: 15px;
+    padding-top: 0px;
+    margin: 15px;
+    border-radius: 25px;
+    border: solid 1px #999999;
+    word-break: break-all;
+}
+
+.read-notification {
+    color: #777777;
+}
+
+.not-read-notification {
+    font-weight: bold;
+}
+
+.notifications {
+    position: absolute;
+    right: 5px;
+    margin-right: 5px;
+    margin-top: 15px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: red;
+    padding-right: 3px;
+    padding-left: 3px;
+}
+
+.close-icon {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+.hamburger-icon {
+    position: relative;
+    top: -5px;
+    font-size: 30px;
+}
+
+.guidance {
+    width: 480px;
+}
+
+.is-pushed {
+    text-decoration: underline;
+}
+
+.current {
+    text-decoration: underline;
+}
+
+.c-tooltip {
+    display: inline-block;
+    position: relative;
+}
+
+.c-tooltip::before,
+.c-tooltip::after {
+    -webkit-transition: all 0.2s;
+    opacity: 0;
+    position: absolute;
+    transition: all 0.2s;
+    visibility: hidden;
+    z-index: 2;
+}
+
+.c-tooltip::after {
+    -webkit-transform: translateY(-50%);
+    background: #f6c5da;
+    border-radius: 3px;
+    color: #000000;
+    content: attr(data-tooltip);
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    left: calc(100%-15px);
+    padding: 5px 10px;
+    top: 50%;
+    margin-top: 20px;
+    transform: translateY(-50%);
+    white-space: nowrap;
+}
+
+.c-tooltip:hover {
+    cursor: pointer;
+}
+
+.c-tooltip:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+.c-tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+.help-homeru {
+    position: absolute;
+    visibility: hidden;
+    background: #f6c5da;
+    border-radius: 3px;
+    padding: 5px;
+    color: #000000;
+}
+
+.is-hometed {
+    background: #FEF9F2;
+}
+
+.header-icon {
+    position: absolute;
+    right: 3px;
+    margin-right: 10px;
+}
+
+.search-form {
+    float: right;
+    margin-top: 15px;
+    margin-right: 60px;
+}
+
+.pagination {
+    font-size: 24px;
+}
+
+.fa-question-circle {
+    font-size: 16px;
+}
+
+.fa-question-circle-form {
+    float: right;
+    font-size: 24px;
+    margin-top: 5px;
+}
+
+.fa-search {
+    font-size: 16px;
+}
+
+.search-form-nologin {
+    margin-right: 10px;
+}
+
+.search-link {
+    display: none;
+}
+
+.rt-notice {
+    display: none;
+    position: fixed;
+    top: 60px;
+    padding: 4px;
+    margin: 0px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fbf1df;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .2);
+    z-index: 1000;
+}
+
+.button-on {
+    width: 80px;
+    text-align: center;
+    border-radius: 15px;
+    padding: 5px;
+    border: solid 1px #999999;
+    background-color: #F7DB70;
+    text-decoration: none;
+}
+.button-on:hover {
+    color: #000000;
+    background-color: #FFFFFF;
+    text-decoration: none;
+}
+
+.button-off {
+    width: 80px;
+    text-align: center;
+    border-radius: 15px;
+    padding: 5px;
+    border: solid 1px #999999;
+    background-color: #FFFFFF;
+    text-decoration: none;
+}
+.button-off:hover {
+    color: #000000;
+    background-color: #F7DB70;
+    text-decoration: none;
+}
+
+.arrow-button {
+    width: 300px;
+    padding: 5px;
+    margin: 3px;
+    border-radius: 5px;
+    border: solid 1px #999999;
+}
+
+.fa-arrow-right {
+    float: right;
+    margin-top: 3px;
+}
+
+.footer {
+    margin-left: 20px;
+    font-size: 12px;
+}
+
+.author {
+    float: right;
+    margin-right: 5px;
+}
+
+.home-all {
+    background-color: #f6c5da;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 45%;
+}
+
+.open-help-homeru {
+    display: none;
+}
+
+@media only screen and (max-width : 640px){
+    .homete-box {
+        width: 90%;
+        padding: 10px;
+    }
+    .login-box {
+        width: 85%;
+        padding: 10px;
+        padding-top: 0px;
+    }
+    .contents-main {
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-top: 10px;
+    }
+    #navigator{
+        left: -150px;
+        width: 150px;
+    }
+    .search-form {
+        display: none;
+    }
+    .search-link {
+        position: absolute;
+        right: 60px;
+        font-size: 26px;
+        top: 10px;
+        display: inline-block;
+    }
+    .guidance {
+        width: 100%;
+    }
+    .help {
+        width: 100%;
+    }
+    .search-link-nologin {
+        right: 10px;
+    }
+    .image-thumb {
+        width: 18%;
+    }
+    .image-big {
+        width: 90%;
+    }
+    input[type=text] {
+        width: 240px;
+    }
+    input[type=email]{
+        width: 240px;
+    }
+    input[type=password]{
+        width: 240px;
+    }
+    .arrow-button {
+        width: 90%;
+    }
+    .c-tooltip::after {
+        display: none;
+    }
+    .open-help-homeru {
+        display: inline-block;
+    }
+}

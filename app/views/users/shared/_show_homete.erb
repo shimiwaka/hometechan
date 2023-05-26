@@ -1,0 +1,103 @@
+<% pushed_table = {} %>
+<% if current_user %>
+    <% already_pushed = Homeru.where(:author => current_user.id, :to => hometes.pluck(:id)) %>
+    <% already_pushed.each do |homeru|%>
+        <% pushed_table["#{homeru.to}"] = true %>
+        <% pushed_table["#{homeru.to}-#{homeru.hometype}"] = true %>
+    <% end %>
+<% end %>
+<% count = 0 %>
+
+<% hometes.each do |homete| %>
+    <% if !homete then next end %>
+    <% user = User.find_by(id: homete.author) %>
+    <% if user then %>
+        <% if !is_mute(user.id) && !user.locked then %>
+            <% count += 1 %>
+            <% if count % 5 == 0 && count <= 15 %>
+                <div class="homete-box">
+                    <script type="text/javascript">
+                    var nend_params = {"media":68211,"site":352607,"spot":1046363,"type":10,"oriented":1};
+                    </script>
+                </div>
+            <% end %>
+            <div class="homete-box <%= isHometed(pushed_table, homete.id) %>" id="homete_<%= homete.id %>">
+                <div class="show-author">
+                    <% if user.screen_name then %>
+                        <%= link_to("/status/#{user.screen_name}")  do %>
+                            <%= showIcon(user, 30) %>
+                            <%= user.name %>
+                        <% end %>
+                    <% else %>
+                        <%= user.name %>
+                        <%= showIcon(user, 30) %>
+                    <% end %>
+                    <% if current_user %>
+                        <% if current_user.id != homete.author and !is_follow(homete.author) then%>
+                           <span class="mini-desc">[フォローしていません]</span>
+                        <% end %>
+                    <% end %>
+                </div>
+                <div>
+                    <%= link_to("/homete/#{homete.id}") do %>
+                        <span class="mini-desc"><%= conv_date(homete.created_at.to_s) %></span>
+                    <% end %>
+                </div>
+                <div class="show-images gallery">
+                    <% if homete[:images] %>
+                        <% if homete[:images].class == String then %>
+                            <% images = eval(homete[:images]) %>
+                        <% else %>
+                            <% images = homete[:images] %>
+                        <% end %>
+                    <% else %>
+                        <% images = [] %>
+                    <% end %>
+                    <% if images.size != 0 then %>
+                    <% cnt = 0 %>
+                        <% images.each do |img| %>
+                            <% if !img then break end %>
+                            <% if img.include?('.png') || img.include?('.jpg') || img.include?('.gif') || img.include?('.jpeg') %>
+                                <% cnt += 1 %>
+                                <a href="<%="/uploads/homete/images/#{homete.id}/#{img}"%>" data-lightbox="image<%=cnt%>">
+                                    <% if images.size == 1 %>
+                                        <%= image_tag "/uploads/homete/images/#{homete.id}/#{img}" ,class: 'image-big' %>
+                                    <% else %>
+                                        <% if cnt == 1 %>
+                                        <%= image_tag "/uploads/homete/images/#{homete.id}/#{img}" ,class: 'image-big' %><br>
+                                        <% else %>
+                                        <%= image_tag "/uploads/homete/images/#{homete.id}/#{img}" ,class: 'image-thumb' %>
+                                        <% end %>
+                                    <% end %>
+                                </a>
+                            <% end %>
+                        <% end %>
+                   <% end %>
+                </div>
+                <div class="show-content"> <%= omit_content(convert_tag(homete.content),homete.id).html_safe %></div>
+                <hr>
+                <% button_hide = false %>
+                <% if current_user %>
+                    <% if current_user.id == homete.author then %>
+                        <% button_hide = true %>
+                    <% end %>
+                <% end %>
+                <%= render "users/shared/show_button", :homete => homete, :button_hide => button_hide, :pushed_table => pushed_table %>
+                <div>
+                    <% if current_user %>
+                        <% if homete.author == current_user.id || is_admin(current_user) then %>
+                            <div class="ctrl-button">
+                                <%= link_to("/homete/edit/#{homete.id}") do %>
+                                   <i class="fas fa-edit"></i>
+                                <% end %>
+                                <%= link_to 'javascript:void(0);', onclick: "destroy('#{homete.id}')".html_safe do%>
+                                    <i class="fas fa-trash-alt"></i>
+                                <% end %>
+                            </div>
+                        <% end %>
+                    <% end %>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+<% end %>
