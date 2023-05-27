@@ -1,24 +1,11 @@
-# README
+# hometechan
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a simple SNS created to study Ruby on Rails.
 
-Things you may want to cover:
+When I was on Twitter, I had some bad experiences with replies and retweets.
 
-* Ruby version
+Therefore, the function of reply and retweet does not exist in this SNS.
 
-* System dependencies
+Only the "homeru" (praise) function, which is equivalent to the "like" function, exists.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Due to server reasons, this service is no longer in operation and the code is now publicly available.11
