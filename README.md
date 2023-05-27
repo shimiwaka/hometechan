@@ -8,4 +8,4 @@ Therefore, the function of reply and retweet does not exist in this SNS.
 
 Only the "homeru" (praise) function, which is equivalent to the "like" function, exists.
 
-Due to server reasons, this service is no longer in operation and the code is now publicly available.11
+Due to server reasons, this service is no longer in operation and the code is now publicly available.
